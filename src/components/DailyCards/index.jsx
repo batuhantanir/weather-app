@@ -6,10 +6,10 @@ import DailyCard from "../DailyCard";
 const DailyCards = () => {
   const dailyWeather = useSelector(dailyWeatherSelector);
 
-  console.log("daily", dailyWeather);
+  // console.log("daily", dailyWeather);
   return (
     dailyWeather && (
-      <div className="flex justify-center ">
+      <div className="flex justify-center">
         {dailyWeather.map((item) => (
           <DailyCard key={item.dt} item={item} />
         ))}

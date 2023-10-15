@@ -11,7 +11,7 @@ const DailyCard = ({ item }) => {
     "Sunday",
   ];
   return (
-    <div className="flex flex-col items-center px-2 py-5 mx-1 bg-[#f4f4f4] rounded">
+    <div className="flex flex-col items-center px-2 py-5 m-1 bg-[#DDE6ED] rounded">
       <div className="text-lg font-semibold">
         {new Date((item.dt - 10800) * 1000).getDay() - 1 !== -1
           ? days[new Date((item.dt - 10800) * 1000).getDay() - 1]

@@ -39,7 +39,7 @@ export const fetchDailyWeather = createAsyncThunk(
 export const weatherSlice = createSlice({
   name: "fetchWeather",
   initialState: {
-    currentWeather: {},
+    currentWeather: [],
     dailyWeather: [],
     loading: false,
     error: null,

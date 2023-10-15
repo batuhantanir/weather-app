@@ -6,7 +6,6 @@ import {
   fetchDailyWeather,
   dailyWeatherSelector,
 } from "./redux/Slices/fetchWeatherSlice";
-import Search from "./components/Search/Search";
 import LeftSide from "./components/LeftSide";
 import Body from "./components/Body";
 
@@ -27,12 +26,9 @@ function App() {
   }, [dispatch, cityName, coord]);
 
   return (
-    <div className="flex flex-col">
-      <Search setCityName={setCityName} />
-      <div className="grid grid-cols-12 gap-1">
-        <LeftSide />
+      <div className="flex">
+        <LeftSide setCityName={setCityName}  />
         <Body />
-      </div>
     </div>
   );
 }
