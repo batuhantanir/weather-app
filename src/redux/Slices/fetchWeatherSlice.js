@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+export const dailyWeatherSelector = (state) => state.weather.dailyWeather;
+export const currentWeatherSelector = (state) => state.weather.currentWeather;
+
 export const fetchCurrentWeather = createAsyncThunk(
   "fetchCurrentWeather",
   async ({ cityName }) => {
@@ -14,8 +17,8 @@ export const fetchCurrentWeather = createAsyncThunk(
   }
 );
 
-export const fetchForecastWeather = createAsyncThunk(
-  "fetchForecastWeather",
+export const fetchDailyWeather = createAsyncThunk(
+  "fetchDailyWeather",
   async ({ coord }) => {
     const response = await axios.get(
       `${import.meta.env.VITE_BASE_URL}forecast?lat=${coord.lat}&lon=${
@@ -23,7 +26,13 @@ export const fetchForecastWeather = createAsyncThunk(
       }&appid=${import.meta.env.VITE_API_KEY}&units=metric`
     );
     const data = await response.data;
-    return data;
+    const arr = [];
+    data.list?.forEach((item) => {
+      if (item.dt_txt.slice(11, 13) === "12") {
+        arr.push(item);
+      }
+    });
+    return arr;
   }
 );
 
@@ -31,7 +40,7 @@ export const weatherSlice = createSlice({
   name: "fetchWeather",
   initialState: {
     currentWeather: {},
-    forecastWeather: {},
+    dailyWeather: [],
     loading: false,
     error: null,
   },
@@ -48,14 +57,14 @@ export const weatherSlice = createSlice({
       state.error = action.error.message;
       state.loading = false;
     });
-    builder.addCase(fetchForecastWeather.pending, (state, action) => {
+    builder.addCase(fetchDailyWeather.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(fetchForecastWeather.fulfilled, (state, action) => {
-      state.forecastWeather = action.payload;
+    builder.addCase(fetchDailyWeather.fulfilled, (state, action) => {
+      state.dailyWeather = action.payload;
       state.loading = false;
     });
-    builder.addCase(fetchForecastWeather.rejected, (state, action) => {
+    builder.addCase(fetchDailyWeather.rejected, (state, action) => {
       state.error = action.error.message;
       state.loading = false;
     });
