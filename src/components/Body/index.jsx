@@ -3,7 +3,7 @@ import DailyCards from "../DailyCards";
 
 const Body = () => {
   return (
-    <div className="grid gap-5 col-span-10">
+    <div className="flex items-center justify-center p-5 w-full">
       <DailyCards />
     </div>
   );

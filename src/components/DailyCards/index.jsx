@@ -9,7 +9,7 @@ const DailyCards = () => {
   // console.log("daily", dailyWeather);
   return (
     dailyWeather && (
-      <div className="flex justify-center">
+      <div className="flex scale-150 justify-center h-fit rounded bg-[#27374d58] p-5">
         {dailyWeather.map((item) => (
           <DailyCard key={item.dt} item={item} />
         ))}
